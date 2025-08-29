@@ -1,0 +1,99 @@
+@startuml
+namespace WeatherApp {
+    class Measurement {
+    - float windSpeed
+    - float airTemperature
+    - float precipitation
+    - float waterLevel
+    - DateTime timestamp
+    - Region region
+    + float WaterLevel
+    + float WindSpeed
+    + float AirTemperature
+    + float Precipitation
+    + DateTime Timestamp
+    + Region Region
+    + Measurement(float windSpeed, float airTemperature, float precipitation, float waterLevel, DateTime timestamp, Region region)
+
+    }
+
+    class Region {
+        - string _continent
+        - string _country
+        - string _city
+        - float _floodRiskLevel
+        - float _temperatureRiskLevel
+        - float _windRiskSpeed
+        - float _precipitationRiskLevel
+        + float floodRiskLevel
+        + float temperatureRiskLevel
+        + float windRiskSpeed
+        + float precipitationRiskLevel
+        + string continent
+        + string country
+        + string city
+        + string GetRegionInfo()
+        + string GetRiskLevels()
+    }
+
+    class Warning {
+        - Prio Prio
+        - WarningType warningType
+        + isValid()
+    }
+
+    enum Prio {
+        Low
+        Medium
+        High
+        Critical
+    }
+
+    enum WarningType {
+        Storm
+        Flood
+        Fire
+    }
+}
+
+namespace WeatherApp.analyser {
+    interface IAnalyser {
+        + analyse(Measurement, Region)
+    }
+
+    class FloodAnalyser {
+        + analyse(Measurement, Region)
+    }
+
+    class StormAnalyser {
+        + analyse(Measurement, Region)
+    }
+
+    FloodAnalyser ..|> IAnalyser
+    StormAnalyser ..|> IAnalyser
+}
+
+namespace WeatherApp.manager {
+    interface IManager {
+        + NotifyAllAnalysers(Measurement, Region)
+    }
+
+    class MeasureManager {
+        - List<IAnalyser> _analysers
+        + RegisterAnalyser(IAnalyser)
+        + UnregisterAnalyser(IAnalyser)
+        + NotifyAllAnalysers(Measurement, Region)
+    }
+
+    MeasureManager ..|> IManager
+    MeasureManager "1" o-- "*" IAnalyser
+}
+
+Measurement --> Region
+Warning --> Prio
+Warning --> WarningType
+FloodAnalyser --> Measurement
+FloodAnalyser --> Region
+StormAnalyser --> Measurement
+StormAnalyser --> Region
+@enduml
