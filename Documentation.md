@@ -34,7 +34,7 @@ public class StormAnalyser : IAnalyser
 ````
 
 
-### Messungsmanager
+### MessungsManager
 
 >Realisieren Sie eine Methode im MessungsManager, welche alle Analyser über eine
 neue Messung informiert. Beschreiben Sie hierfür das Observer Pattern
