@@ -82,6 +82,9 @@ public class Region
             $"Wind Risk Level: {_windRiskSpeed}" +
             $"Precipitation Risk Level: {_precipitationRiskLevel}";
     }
-    
-    
+
+    public override bool Equals(object? obj)
+    {
+        return this._city == (obj as Region).city;
+    }
 }

@@ -19,11 +19,11 @@ public class MeasureManager : IManager
     {
         _analysers.Remove(analyser);
     }
-    public void NotifyAllAnalysers(Measurement measurement, Region region)
+    public void NotifyAllAnalysers(Measurement measurement)
     {
         foreach (IAnalyser analyser in _analysers)
         {
-            analyser.analyse(measurement, region);
+            analyser.analyse(measurement);
         }
     }
 

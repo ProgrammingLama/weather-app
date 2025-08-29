@@ -2,5 +2,5 @@
 
 public interface IAnalyser
 {
-    void analyse(Measurement measurement, Region region);
+    void analyse(Measurement measurement);
 }
